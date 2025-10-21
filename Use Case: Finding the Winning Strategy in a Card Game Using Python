@@ -1,0 +1,48 @@
+import random
+
+# Define the card deck
+SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
+DECK = [(rank, suit) for suit in SUITS for rank in RANKS]
+
+def card_value(card):
+    return RANKS.index(card[0])
+
+def draw_card(deck):
+    card = random.choice(deck)
+    deck.remove(card)
+    return card
+
+def play_game(num_rounds):
+    deck = DECK.copy()  # Make a copy of the deck
+    score_A = 0
+    score_B = 0
+
+    for round_num in range(1, num_rounds + 1):
+        print(f"\nRound {round_num}:")
+        card_A = draw_card(deck)
+        card_B = draw_card(deck)
+        print(f"Player A draws: {card_A[0]} of {card_A[1]}")
+        print(f"Player B draws: {card_B[0]} of {card_B[1]}")
+
+        if card_value(card_A) > card_value(card_B):
+            score_A += 1
+            print("Player A wins the round!")
+        elif card_value(card_A) < card_value(card_B):
+            score_B += 1
+            print("Player B wins the round!")
+        else:
+            print("It's a tie!")
+
+    print("\nFinal Scores:")
+    print(f"Player A: {score_A} rounds won")
+    print(f"Player B: {score_B} rounds won")
+
+    if score_A > score_B:
+        print("Player A is the overall winner!")
+    elif score_A < score_B:
+        print("Player B is the overall winner!")
+    else:
+        print("The game ends in a tie!")
+
+play_game(5)
